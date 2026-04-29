@@ -1,0 +1,4 @@
+[submodule "chapter_10"]
+	path = chapter_10
+	url = git@github.com:cubancodepath/cubancodemath.git
+	branch = v2
