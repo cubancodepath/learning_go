@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	ar := "hola"
+	fmt.Println(ar)
+
 	result := cubancodemath.Add(3.4, 4.4)
 	fmt.Println(result)
 }
