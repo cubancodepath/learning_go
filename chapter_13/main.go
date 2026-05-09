@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"log/slog"
 	"net/http"
@@ -27,6 +28,17 @@ func LogginMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
+}
+
+// chapter 14
+func NewTimeoutMiddleware(duration time.Duration) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			ctx, cancelFunc := context.WithTimeout(req.Context(), duration)
+			defer cancelFunc()
+			next.ServeHTTP(w, req.WithContext(ctx))
+		})
+	}
 }
 
 func timeHandler(w http.ResponseWriter, r *http.Request) {
